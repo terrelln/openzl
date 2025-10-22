@@ -37,6 +37,7 @@ endif()
 
 nanobind_add_module(
     _openzl_demo
+    STABLE_ABI
     ext/openzl_demo.cpp
 )
 target_link_libraries(
@@ -49,5 +50,5 @@ target_link_libraries(
 
 install(
     TARGETS _openzl_demo
-    DESTINATION ${Python_SITEARCH}
+    DESTINATION openzl_demo
 )

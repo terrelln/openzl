@@ -31,6 +31,13 @@ wheel.py-api = "cp312"
 # Point it at the project build directory
 cmake.source-dir = ".."
 
+# Exclude installed zstd components
+# TODO: Add an option to zstd's cmake to not install zstd in the first place
+wheel.exclude = [
+    "include/**/*",
+    "lib*/**/*",
+]
+
 [tool.scikit-build.cmake.define]
 # Build the Python extension, but don't install OpenZL.
 # We only want to install the Python extension itself.

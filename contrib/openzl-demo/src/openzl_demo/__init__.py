@@ -1,14 +1,15 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 
 import time
-from typing import Any
+from typing import Any, Dict, List, Optional
 
-import _openzl_demo
 import numpy as np
 import openzl.ext as zl
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objs as go
+
+from . import _openzl_demo
 
 
 class TrainerResults:
@@ -16,13 +17,13 @@ class TrainerResults:
     A set of trained OpenZL compressors with benchmarks that can be visualized.
     """
 
-    def __init__(self, compressors: list[bytes], inputs: list[bytes]) -> None:
+    def __init__(self, compressors: List[bytes], inputs: List[bytes]) -> None:
         self._compressors = compressors
         self._inputs = inputs
         self._benchmarks = [benchmark(compressor, inputs) for compressor in compressors]
         self._prune()
 
-    def _strictly_dominates(self, a: dict[str, float], b: dict[str, float]) -> bool:
+    def _strictly_dominates(self, a: Dict[str, float], b: Dict[str, float]) -> bool:
         better_in_all = (
             a["compression_ratio"] >= b["compression_ratio"]
             and a["compression_speed_MBps"] >= b["compression_speed_MBps"]
@@ -166,7 +167,7 @@ class TrainerResults:
         return pd.DataFrame(self._benchmarks)
 
     @property
-    def compressors(self) -> list[bytes]:
+    def compressors(self) -> List[bytes]:
         """
         The set of compressors. See the `dataframe` or `plot()` to select which compressor to use.
         """
@@ -174,9 +175,9 @@ class TrainerResults:
 
 
 def train(
-    inputs: list[bytes],
-    num_threads: int | None = None,
-    max_time_seconds: float | None = None,
+    inputs: List[bytes],
+    num_threads: Optional[int] = None,
+    max_time_seconds: Optional[float] = None,
 ) -> TrainerResults:
     """
     Trains a set of OpenZL compressors on `inputs` that offer a Pareto frontier
@@ -240,7 +241,7 @@ def decompress(compressed: bytes) -> bytes:
     return decompressed[0].content.as_bytes()
 
 
-def benchmark(compressor: bytes, inputs: list[bytes]) -> dict[str, float]:
+def benchmark(compressor: bytes, inputs: List[bytes]) -> Dict[str, float]:
     """
     Benchmarks the `compressor` on the `inputs`.
 

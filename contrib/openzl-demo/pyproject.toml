@@ -7,7 +7,7 @@ build-backend = "scikit_build_core.build"
 # TODO: Figure out how to get the version from zl_version.h
 [project]
 name = "openzl-demo"
-version = "0.1.0"
+version = "0.1.1"
 requires-python = ">=3.8"
 dependencies = [
     "kaleido >=1.0.0",
@@ -32,6 +32,13 @@ wheel.py-api = "cp312"
 
 # Point it at the project build directory
 cmake.source-dir = "../.."
+
+# Exclude installed zstd components
+# TODO: Add an option to zstd's cmake to not install zstd in the first place
+wheel.exclude = [
+    "include/**/*",
+    "lib*/**/*",
+]
 
 [tool.scikit-build.cmake.define]
 # Build the Python extension, but don't install OpenZL.
