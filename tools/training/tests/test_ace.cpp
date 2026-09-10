@@ -254,7 +254,7 @@ TEST_F(ACETest, savePopulation)
         auto result2   = solution2.benchmark(
                 ace->inputs(), ZL_MAX_FORMAT_VERSION, ace->compressionLevel());
         ASSERT_TRUE(result2.has_value());
-        ASSERT_GT(result2->compressedSize, 90);
+        ASSERT_GT(result2->compressedSize, 74);
         ASSERT_NE(solution, solution2);
     }
 
@@ -265,7 +265,7 @@ TEST_F(ACETest, savePopulation)
         auto result2   = solution2.benchmark(
                 ace->inputs(), ZL_MAX_FORMAT_VERSION, ace->compressionLevel());
         ASSERT_TRUE(result2.has_value());
-        ASSERT_LE(result2->compressedSize, 90);
+        ASSERT_LE(result2->compressedSize, 74);
     }
     // NOTE: The exact smallest solution may not be preserved due to benchmark
     // instability, since it might not be Pareto-optimal in the new benchmark.

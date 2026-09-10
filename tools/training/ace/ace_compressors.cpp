@@ -118,6 +118,7 @@ std::vector<ACEGraph> makeAllGraphs()
 {
     std::vector<ACEGraph> g;
     g.push_back(buildGraph(graphs::Compress{}));
+    g.push_back(buildGraph(graphs::TransformerNumeric{}));
     g.push_back(buildGraph(graphs::Entropy{}));
     g.push_back(buildGraph(graphs::Bitpack{}));
     g.push_back(buildGraph(graphs::Constant{}));
@@ -141,6 +142,7 @@ std::vector<ACECompressor> makePrebuiltNumericCompressors()
         compressors.emplace_back(graph);
     }
 
+    ACECompressor transformer(buildGraph(graphs::TransformerNumeric{}));
     ACECompressor fieldLz(buildGraph(graphs::FieldLz{}));
     ACECompressor zstd(buildGraph(graphs::Zstd{}));
     ACECompressor transpose(buildNode(nodes::TransposeSplit{}), { zstd });
@@ -177,6 +179,7 @@ std::vector<ACECompressor> makePrebuiltNumericCompressors()
     ACECompressor quantizeLengths(
             buildNode(nodes::QuantizeOffsets{}), { fse, store });
     std::vector<ACECompressor> prebuilt = {
+        transformer,
         fieldLz,
         zstd,
         transpose,
