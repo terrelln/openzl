@@ -334,6 +334,19 @@ ZL_GraphID SI_transformer_numeric_select(
             &decision.core, TRS_score_num64_operation_ids, supportedOperations);
 }
 
+ZL_Report MultiInputGraph_transformerNumeric(
+        ZL_Graph* gctx,
+        ZL_Edge* inputs[],
+        size_t nbInputs)
+{
+    ZL_RESULT_DECLARE_SCOPE_REPORT(gctx);
+    for (size_t n = 0; n < nbInputs; n++) {
+        ZL_ERR_IF_ERR(ZL_Edge_setDestination(
+                inputs[n], ZL_GRAPH_TRANSFORMER_NUMERIC1));
+    }
+    return ZL_returnSuccess();
+}
+
 ZL_GraphID SI_selector_numeric(
         const ZL_Selector* selCtx,
         const ZL_Input* inputStream,
@@ -349,5 +362,5 @@ ZL_GraphID SI_selector_numeric(
     if (compressionLevel < TRANSFORMER_MIN_COMPRESSION_LEVEL) {
         return ZL_GRAPH_STRUCT_COMPRESS;
     }
-    return ZL_GRAPH_TRANSFORMER_NUMERIC;
+    return ZL_GRAPH_TRANSFORMER_NUMERIC1;
 }

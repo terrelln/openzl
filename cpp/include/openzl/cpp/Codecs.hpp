@@ -38,6 +38,7 @@
 #include "openzl/cpp/codecs/SplitByStruct.hpp"    // IWYU pragma: export
 #include "openzl/cpp/codecs/Store.hpp"            // IWYU pragma: export
 #include "openzl/cpp/codecs/Tokenize.hpp"         // IWYU pragma: export
+#include "openzl/cpp/codecs/Transformer.hpp"      // IWYU pragma: export
 #include "openzl/cpp/codecs/Transpose.hpp"        // IWYU pragma: export
 #include "openzl/cpp/codecs/Zigzag.hpp"           // IWYU pragma: export
 #include "openzl/cpp/codecs/Zstd.hpp"             // IWYU pragma: export
