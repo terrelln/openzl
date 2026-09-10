@@ -92,6 +92,7 @@ enum class OpenZLComponentID {
     SparseNum,
     PivCoHuffman,
     PivCoHuffmanGraph,
+    TransformerNumeric,
     // Must be last enum value
     NumComponents,
 };
@@ -170,6 +171,7 @@ std::unique_ptr<OpenZLComponent> makeMuxLengthsComponent();
 std::unique_ptr<OpenZLComponent> makeSparseNumComponent();
 std::unique_ptr<OpenZLComponent> makePivCoHuffmanComponent();
 std::unique_ptr<OpenZLComponent> makePivCoHuffmanGraphComponent();
+std::unique_ptr<OpenZLComponent> makeTransformerNumericComponent();
 
 } // namespace components
 
@@ -311,6 +313,8 @@ inline std::unique_ptr<OpenZLComponent> makeOpenZLComponent(
             return components::makePivCoHuffmanComponent();
         case OpenZLComponentID::PivCoHuffmanGraph:
             return components::makePivCoHuffmanGraphComponent();
+        case OpenZLComponentID::TransformerNumeric:
+            return components::makeTransformerNumericComponent();
         case OpenZLComponentID::NumComponents:
         default:
             throw std::runtime_error("Invalid component");

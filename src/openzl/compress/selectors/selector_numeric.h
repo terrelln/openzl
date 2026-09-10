@@ -5,6 +5,7 @@
 
 #include "openzl/compress/selectors/transformer/generic_numeric_ops.h"
 #include "openzl/shared/portability.h"
+#include "openzl/zl_graph_api.h"
 #include "openzl/zl_selector.h"
 
 ZL_BEGIN_C_DECLS
@@ -48,6 +49,22 @@ ZL_GraphID SI_transformer_numeric_select(
         const ZL_Input* inputStream,
         const ZL_GraphID* customGraphs,
         size_t nbCustomGraphs);
+
+// Multi-Input version of the pretrained numeric Transformer.
+// Dispatches each Input to its own Transformer selector.
+ZL_Report MultiInputGraph_transformerNumeric(
+        ZL_Graph* gctx,
+        ZL_Edge* inputs[],
+        size_t nbInputs);
+
+#define MIGRAPH_TRANSFORMER_NUMERIC                                  \
+    {                                                                \
+        .name                = "!zl.transformer_numeric",            \
+        .graph_f             = MultiInputGraph_transformerNumeric,   \
+        .inputTypeMasks      = (const ZL_Type[]){ ZL_Type_numeric }, \
+        .nbInputs            = 1,                                    \
+        .lastInputIsVariable = 1,                                    \
+    }
 
 // .selector_f   = SI_selector_numeric,
 // .inStreamType = ZL_Type_numeric
