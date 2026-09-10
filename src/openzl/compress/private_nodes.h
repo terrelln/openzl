@@ -246,7 +246,7 @@ typedef enum {
     ZL_PrivateStandardGraphID_transformer_static_tok_mono_lz,
     ZL_PrivateStandardGraphID_transformer_static_delta_tok_mono_lz,
     ZL_PrivateStandardGraphID_transformer_static_fallback,
-    ZL_PrivateStandardGraphID_transformer_numeric,
+    ZL_PrivateStandardGraphID_transformer_numeric1,
 
     ZL_PrivateStandardGraphID_end // last id, used to detect out-of-bound enum
                                   // values
@@ -409,8 +409,11 @@ typedef enum {
             ZL_PrivateStandardGraphID_transformer_static_delta_tok_mono_lz)
 #define ZL_GRAPH_TRANSFORMER_STATIC_FALLBACK \
     ZL_MAKE_GRAPH_ID(ZL_PrivateStandardGraphID_transformer_static_fallback)
-#define ZL_GRAPH_TRANSFORMER_NUMERIC \
-    ZL_MAKE_GRAPH_ID(ZL_PrivateStandardGraphID_transformer_numeric)
+
+/* Single-Input Transformer selector.
+ * ZL_GRAPH_TRANSFORMER_NUMERIC is the Multi-Input graph on top of it. */
+#define ZL_GRAPH_TRANSFORMER_NUMERIC1 \
+    ZL_MAKE_GRAPH_ID(ZL_PrivateStandardGraphID_transformer_numeric1)
 
 // clang-format on
 
