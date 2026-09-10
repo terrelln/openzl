@@ -112,17 +112,32 @@ std::vector<graphs::Lz::Parameters> candidateParameters()
         for (auto acceleration : accelerations) {
             for (auto windowLog : windowLogs) {
                 for (auto hashLength : hashLengths) {
+                    nodes::Lz::Parameters nodeParams;
+                    nodeParams.compressionLevel = level;
+                    nodeParams.acceleration     = acceleration;
+                    nodeParams.windowLog        = windowLog;
+                    nodeParams.hashLength       = hashLength;
+
+                    // Add the transformer as an option.
+                    for (auto muxLengthsGraph :
+                         { poly::optional<GraphID>{},
+                           poly::optional<GraphID>{
+                                   ZL_GRAPH_TRANSFORMER_NUMERIC } }) {
+                        graphs::Lz::Parameters params;
+                        params.nodeParams      = nodeParams;
+                        params.muxLengthsGraph = muxLengthsGraph;
+                        params.offsetsGraph    = ZL_GRAPH_TRANSFORMER_NUMERIC;
+                        params.overflowLengthsGraph =
+                                ZL_GRAPH_TRANSFORMER_NUMERIC;
+                        candidates.push_back(std::move(params));
+                    }
                     for (auto literalsGraph : literalsGraphs) {
                         for (auto offsetsGraph : offsetsGraphs) {
                             for (auto muxedBytesGraph : muxedBytesGraphs) {
                                 for (auto overflowLengthsGraph :
                                      overflowLengthsGraphs) {
                                     graphs::Lz::Parameters params;
-                                    params.nodeParams.compressionLevel = level;
-                                    params.nodeParams.acceleration =
-                                            acceleration;
-                                    params.nodeParams.windowLog  = windowLog;
-                                    params.nodeParams.hashLength = hashLength;
+                                    params.nodeParams      = nodeParams;
                                     params.literalsGraph   = literalsGraph;
                                     params.offsetsGraph    = offsetsGraph;
                                     params.muxedBytesGraph = muxedBytesGraph;
